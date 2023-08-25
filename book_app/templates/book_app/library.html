@@ -1,0 +1,63 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.rtl.min.css" integrity="sha384-PRrgQVJ8NNHGieOA1grGdCTIt4h21CzJs6SnWH4YMQ6G5F5+IEzOHz67L4SQaF0o" crossorigin="anonymous">
+
+    <title>book app</title>
+  </head>
+  <body style="text-transform: capitalize;
+                font-family: sans serif;">
+   
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+           <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a href="{% url 'index' %}" class="navbar-brand"><h4>my library</h4></a>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+              <li class="nav-item">
+                <a href="{% url 'admin:index' %}" class="nav-link"><h4>admin panel</h4></a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'upload-book' %}" class="nav-link"><h4>uploads book</h4></a>
+              </li>
+            </ul>
+           </div>
+          </nav>
+          <br>
+
+        <div class="container-fluid">
+            {% block content %}
+            <h4 class="text-center p-5">
+              the best place to learn and gain more knowledge in all aspects of life,
+              it is more organized library to make it simply for you to exploits
+              knowledge.
+            </h4>
+          
+          <div class="card-columns">
+            {% for book in shelf %}
+            <div class="card" style="width: 18rem;">
+              <img class="card-img-top" src="{{ book.picture.url}}" alt="">
+              <div class="card-body">
+                <h5 class="card-title">{{ book.name|title }}</h5>
+                <p class="card-text">{{book.description|title}}</p>
+                <div class="card-footer bg-transparent border-dark">
+                  <p class="card-title">Author: {{ book.author|title}}</p>
+                  <center>
+                    <a href="update/{{book.id}}" class="btn btn-primary" id="{{ book.id}}">edit</a>
+                    <a href="delete/{{book.id}}" class="btn btn-danger" id="{{ book.id}}">delete</a>
+                  </center>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% endblock  %}
+        </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  </body>
+</html>
